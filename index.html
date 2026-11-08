@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Click Me</title>
     <link rel="stylesheet" href="styles.css" />
+
 </head>
 
 <body>
-    <div class="page">    
+    <audio id="minha-musica" loop>
+        <source src="Desireless - Voyage Voyage.mp3" type="audio/mpeg">
+    </audio>
+    <div class="page">   
         <h1 class="cabecario">Me ajude a conquistar meu capacete</h1>
         <!-- Caixa transparente com a imagem e o botão -->
         <main class="card">
@@ -23,5 +27,19 @@
         <!-- Faixa inferior -->
         <p class="strip">Sem compromisso. Clique e veja o que acontece.</p>
     </div>
+    <script>
+        const musica = document.getElementById('minha-musica');
+        musica.volume = 0.3
+
+        // Tenta tocar sozinho (funciona apenas se o usuário já deu permissão antes)
+        musica.play().catch(() => {
+            // Se o navegador bloquear, inicia no primeiro clique em qualquer lugar da tela
+            document.addEventListener('click', () => {
+                musica.currentTime = 38
+                musica.play();
+            }, { once: true });
+        });
+    </script>
+
 </body>
 </html>
