@@ -36,11 +36,13 @@
             if (!musica.paused) {      // clicar de novo pausa
                 musica.pause();
                 botao.textContent = 'Solta o som DJ';
+                botao.classList.remove('movido');
                 return;
                 }
             else { 
                 musica.play();
                 botao.textContent = 'Segura DJ';
+                botao.classList.add('movido');
             } 
             });
     </script>
