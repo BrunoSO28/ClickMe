@@ -10,12 +10,13 @@
 
 <body>
     <audio id="minha-musica" loop>
-        <source src="Desireless - Voyage Voyage.mp3" type="audio/mpeg">
+        <source src="Voyage-Voyage.mp3" type="audio/mpeg">
     </audio>
     <div class="page">   
         <h1 class="cabecario">Me ajude a conquistar meu capacete</h1>
         <!-- Caixa transparente com a imagem e o botão -->
         <main class="card">
+            <button id="toca-musica" class="play">Solta o som DJ</button>
             <picture>
                 <source media="(max-width: 700px)" srcset="IMG-mobile.webp" type="image/webp">
                 <img src="IMG.png" alt="Duas pessoas apontando para o botão"
@@ -29,17 +30,33 @@
     </div>
     <script>
         const musica = document.getElementById('minha-musica');
-        musica.volume = 0.3
+        const botao  = document.getElementById('toca-musica');
+        const INICIO = 38; // segundos
 
-        // Tenta tocar sozinho (funciona apenas se o usuário já deu permissão antes)
-        musica.play().catch(() => {
-            // Se o navegador bloquear, inicia no primeiro clique em qualquer lugar da tela
-            document.addEventListener('click', () => {
-                musica.currentTime = 38
-                musica.play();
-            }, { once: true });
+        musica.volume = 0.3;
+
+        botao.addEventListener('click', async () => {
+            if (!musica.paused) {      // clicar de novo pausa
+                musica.pause();
+                botao.textContent = 'Solta o som DJ';
+                return;
+            }
+            try {
+                if (musica.readyState < 1) {            // metadados ainda não carregaram
+                    musica.load();
+                    await new Promise((ok, erro) => {
+                        musica.addEventListener('loadedmetadata', ok,   { once: true });
+                        musica.addEventListener('error',          erro, { once: true });
+                    });
+                }
+                if (musica.currentTime < INICIO) musica.currentTime = INICIO;
+                await musica.play();
+                botao.textContent = 'Segura DJ';
+            } catch (err) {
+                console.error('Não foi possível tocar:', err, musica.error);
+                alert('Não consegui carregar a música. Confira se o arquivo Voyage-Voyage.mp3 está na mesma pasta do index.html.');
+            }
         });
     </script>
-
 </body>
 </html>

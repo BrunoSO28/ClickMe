@@ -7,7 +7,7 @@
     --bg-2: #f8f3ea;
     --ink: #1c1b19;
     --ink-soft: #7b7468;
-    --accent: #1f3d2b;
+    --accent: #1f3d20;
     --glass: rgba(255, 255, 255, 0.35);
     --glass-border: rgba(255, 255, 255, 0.7);
     --radius: clamp(16px, 2.2vw, 28px);
@@ -44,12 +44,13 @@ body {
 
 .cabecario {
     font-weight: 700;
-    font-size: clamp(1.1rem, 4.5vw, 2rem);
+    font-size: clamp(1.2rem, 4.5vw, 2rem);
     text-align: center;
     text-wrap: balance;
     letter-spacing: -0.02em;
     color: var(--ink);
     text-decoration: none;
+    margin-top: 90px;
     /*position: relative;*/
     /*justify-self: center;*/
     /*align-self: center;*/
@@ -60,7 +61,7 @@ body {
 .card {
     position: relative;
     justify-self: center;
-    align-self: center;
+    margin-top: 30px; 
     overflow: hidden;
 
     /* 16:9 e sempre cabe na tela, sem cortar nem distorcer */
@@ -137,6 +138,34 @@ body {
     outline-offset: 4px;
 }
 
+.play {
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+    left: 86%;
+    top: 3%;
+    font-size: clamp(0.3rem, 1.5cqw, 2.8rem);
+    padding: 0.5em 1em;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #fff;
+    background: rgb(89, 32, 32);
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgba(61, 31, 31, 0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.play:hover {
+    box-shadow: 0 14px 30px rgba(81, 43, 43, 0.45);
+}
+
+.play:focus-visible {
+    outline: 3px solid rgb(129, 34, 34);
+    outline-offset: 4px;
+}
+
 /* ---------- Faixa inferior ---------- */
 .strip {
     justify-self: center;
@@ -161,6 +190,10 @@ body {
         /* no celular o card é estreito: botão proporcionalmente maior, fácil de tocar */
         font-size: clamp(1rem, 5.2cqw, 1.5rem);
         left: 51%; top: 55%;
+    }
+    .play {
+        font-size: clamp(0.7rem, 2.6cqw, 1.5rem);
+        left:70%;
     }
     .Image1 {
         -webkit-mask-image: none;   /* a máscara de 58%→77% foi feita para a imagem horizontal */
