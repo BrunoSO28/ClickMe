@@ -1,0 +1,175 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-1: #efe6d8;
+    --bg-2: #f8f3ea;
+    --ink: #1c1b19;
+    --ink-soft: #7b7468;
+    --accent: #1f3d2b;
+    --glass: rgba(255, 255, 255, 0.35);
+    --glass-border: rgba(255, 255, 255, 0.7);
+    --radius: clamp(16px, 2.2vw, 28px);
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    color: var(--ink);
+    background: var(--bg-2);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Estrutura da página ---------- */
+.page {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: clamp(8px, 2vh, 24px);
+    padding: clamp(10px, 2vw, 28px);
+    background:
+        radial-gradient(900px 500px at 15% 0%, var(--bg-1) 0%, transparent 70%),
+        radial-gradient(900px 600px at 100% 100%, #e9efe3 0%, transparent 65%),
+        linear-gradient(180deg, var(--bg-2), var(--bg-1));
+}
+
+* {
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.cabecario {
+    font-weight: 700;
+    font-size: clamp(1.1rem, 4.5vw, 2rem);
+    text-align: center;
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+    /*position: relative;*/
+    /*justify-self: center;*/
+    /*align-self: center;*/
+}
+.cabecario { color: var(--accent); }
+
+/* ---------- Caixa transparente (imagem + botão) ---------- */
+.card {
+    position: relative;
+    justify-self: center;
+    align-self: center;
+    overflow: hidden;
+
+    /* 16:9 e sempre cabe na tela, sem cortar nem distorcer */
+    aspect-ratio: 16 / 9;
+    width: min(100%, 1400px, calc((100dvh - 190px) * 16 / 9));
+
+    /* permite dimensionar o botão em função da largura do card (unidade cqw) */
+    container-type: inline-size;
+
+    /* vidro: bem transparente, com brilho suave nas bordas */
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.28) 0%,
+        rgba(255, 255, 255, 0.08) 45%,
+        rgba(255, 255, 255, 0.16) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 3%;
+    backdrop-filter: blur(22px) saturate(1.35);
+    -webkit-backdrop-filter: blur(22px) saturate(1.35);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.9) inset,
+        0 -1px 0 rgba(255, 255, 255, 0.25) inset,
+        0 30px 60px -25px rgba(60, 50, 30, 0.22);
+}
+
+.Image1 {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    user-select: none;
+    -webkit-user-drag: none;
+
+    /* imagem mais transparente */
+    opacity: 0.9;
+
+    /* dissolve a parte de baixo (o recorte termina em ~78% da altura),
+       em vez de mostrar um corte reto */
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 77%);
+            mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 77%);
+}
+
+/* Botão entre os dedos (centro da imagem) */
+.botao {
+    position: absolute;
+    left: 50%;
+    top: 48%;                      /* altura da ponta dos dedos; ajuste se precisar */
+    transform: translate(-50%, -50%);
+
+    /* o botão cresce e encolhe junto com a imagem: tudo em função da largura do card.
+       padding em "em" acompanha o tamanho da fonte */
+    font-size: clamp(1rem, 2.6cqw, 2.8rem);
+    padding: 0.6em 1.5em;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #fff;
+    background: var(--accent);
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgba(31, 61, 43, 0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.botao:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+    box-shadow: 0 14px 30px rgba(31, 61, 43, 0.45);
+}
+
+.botao:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+}
+
+/* ---------- Faixa inferior ---------- */
+.strip {
+    justify-self: center;
+    margin: 0;
+    padding: 10px clamp(16px, 3vw, 32px);
+    font-size: clamp(0.78rem, 1.1vw, 0.92rem);
+    color: #2c4a36;
+    text-align: center;
+    background: #e2f3e4;
+    border-radius: 999px;
+}
+
+/* ---------- Celular (vertical) ---------- */
+@media (max-width: 700px) {
+    .card {
+        /* caixa mais alta: a imagem ocupa a tela, o centro (dedos + botão) fica visível */
+        aspect-ratio: 4 / 5;
+        width: 100%;
+        max-height: calc(100dvh - 170px);
+    }
+    .botao {
+        /* no celular o card é estreito: botão proporcionalmente maior, fácil de tocar */
+        font-size: clamp(1rem, 5.2cqw, 1.5rem);
+        left: 51%; top: 55%;
+    }
+    .Image1 {
+        -webkit-mask-image: none;   /* a máscara de 58%→77% foi feita para a imagem horizontal */
+        mask-image: none;
+    }
+}
+
+/* ---------- Celular deitado (pouca altura) ---------- */
+@media (max-height: 520px) and (orientation: landscape) {
+    .strip { display: none; }
+    .card { width: min(100%, calc((100dvh - 90px) * 16 / 9)); }
+}
