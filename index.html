@@ -31,32 +31,18 @@
     <script>
         const musica = document.getElementById('minha-musica');
         const botao  = document.getElementById('toca-musica');
-        const INICIO = 0; // segundos
-
         musica.volume = 0.3;
-
-        botao.addEventListener('click', async () => {
+        botao.addEventListener('click', () => {
             if (!musica.paused) {      // clicar de novo pausa
                 musica.pause();
                 botao.textContent = 'Solta o som DJ';
                 return;
-            }
-            try {
-                if (musica.readyState < 1) {            // metadados ainda não carregaram
-                    musica.load();
-                    await new Promise((ok, erro) => {
-                        musica.addEventListener('loadedmetadata', ok,   { once: true });
-                        musica.addEventListener('error',          erro, { once: true });
-                    });
                 }
-                if (musica.currentTime < INICIO) musica.currentTime = INICIO;
-                await musica.play();
+            else { 
+                musica.play();
                 botao.textContent = 'Segura DJ';
-            } catch (err) {
-                console.error('Não foi possível tocar:', err, musica.error);
-                alert('Não consegui carregar a música. Confira se o arquivo Voyage-Voyage.mp3 está na mesma pasta do index.html.');
-            }
-        });
+            } 
+            });
     </script>
 </body>
 </html>
