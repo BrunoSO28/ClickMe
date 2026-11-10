@@ -50,18 +50,22 @@ body {
     letter-spacing: -0.02em;
     color: var(--ink);
     text-decoration: none;
-    margin-top: 90px;
+    margin-top: 20px;
     /*position: relative;*/
     /*justify-self: center;*/
     /*align-self: center;*/
 }
 .cabecario { color: var(--accent); }
 
+#texto2 {
+    margin-top: 0px;
+    height: 21px;
+}
 /* ---------- Caixa transparente (imagem + botão) ---------- */
 .card {
     position: relative;
     justify-self: center;
-    margin-top: 30px; 
+    margin-top: 0px; 
     overflow: hidden;
 
     /* 16:9 e sempre cabe na tela, sem cortar nem distorcer */
@@ -186,10 +190,16 @@ body {
 /* ---------- Celular (vertical) ---------- */
 @media (max-width: 700px) {
     .card {
+        position: absolute;
+        top:20%;
         /* caixa mais alta: a imagem ocupa a tela, o centro (dedos + botão) fica visível */
         aspect-ratio: 4 / 5;
         width: 100%;
         max-height: calc(100dvh - 170px);
+    }
+    .strip {
+        position: absolute;
+        top:80%
     }
     .botao {
         /* no celular o card é estreito: botão proporcionalmente maior, fácil de tocar */
@@ -209,10 +219,37 @@ body {
         -webkit-mask-image: none;   /* a máscara de 58%→77% foi feita para a imagem horizontal */
         mask-image: none;
     }
+    .cabecario {
+        margin-top: 90px;
+    }
+    #texto2 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        padding: 0;
+    }
+    .page{
+        gap: 0;
+        padding: 0;
+    }
 }
 
 /* ---------- Celular deitado (pouca altura) ---------- */
 @media (max-height: 520px) and (orientation: landscape) {
     .strip { display: none; }
     .card { width: min(100%, calc((100dvh - 90px) * 16 / 9)); }
+}
+
+@media (max-width: 380px) and (min-width: 370px) {
+    .cabecario {
+    font-weight: 700;
+    font-size: clamp(0.8rem, 4.5vw, 2rem);
+    }
+    .card {
+        position: absolute;
+        top:22%;
+    }
+    .strip {
+        position: absolute;
+        top: 93%;
+    }
 }
