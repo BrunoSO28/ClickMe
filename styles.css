@@ -189,17 +189,30 @@ body {
 
 /* ---------- Celular (vertical) ---------- */
 @media (max-width: 700px) {
+    /* Layout em fluxo normal (sem position:absolute), para não depender
+       da altura da barra do Safari/Chrome no iPhone */
+    .page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 16px 10px;
+        min-height: 100dvh;
+    }
     .card {
-        position: absolute;
-        top:20%;
-        /* caixa mais alta: a imagem ocupa a tela, o centro (dedos + botão) fica visível */
+        position: relative;
+        top: auto;
+        flex-shrink: 0;
+        margin: 0;
         aspect-ratio: 4 / 5;
-        width: 100%;
-        max-height: calc(100dvh - 170px);
+        /* cabe na tela: limita pela largura e pela altura disponível */
+        width: min(100%, calc((100dvh - 210px) * 4 / 5));
+        max-height: none;
     }
     .strip {
-        position: absolute;
-        top:80%
+        position: static;
+        flex-shrink: 0;
     }
     .botao {
         /* no celular o card é estreito: botão proporcionalmente maior, fácil de tocar */
@@ -220,16 +233,13 @@ body {
         mask-image: none;
     }
     .cabecario {
-        margin-top: 90px;
+        margin: 0;
+        font-size: clamp(1rem, 4.6vw, 1.5rem);
     }
     #texto2 {
-        margin-top: 0px;
-        margin-bottom: 0px;
+        margin: 0;
         padding: 0;
-    }
-    .page{
-        gap: 0;
-        padding: 0;
+        height: auto;
     }
 }
 
@@ -239,17 +249,9 @@ body {
     .card { width: min(100%, calc((100dvh - 90px) * 16 / 9)); }
 }
 
-@media (max-width: 395px) and (min-width: 370px) {
+/* Celulares bem estreitos: só reduz um pouco o título */
+@media (max-width: 380px) {
     .cabecario {
-    font-weight: 700;
-    font-size: clamp(0.8rem, 4.5vw, 2rem);
-    }
-    .card {
-        position: absolute;
-        top:22%;
-    }
-    .strip {
-        position: absolute;
-        top: 93%;
+        font-size: clamp(0.85rem, 4.4vw, 1.2rem);
     }
 }
