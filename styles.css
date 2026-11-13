@@ -239,7 +239,7 @@ body {
     .card { width: min(100%, calc((100dvh - 90px) * 16 / 9)); }
 }
 
-@media (max-width: 380px) and (min-width: 370px) {
+@media (max-width: 395px) and (min-width: 370px) {
     .cabecario {
     font-weight: 700;
     font-size: clamp(0.8rem, 4.5vw, 2rem);
